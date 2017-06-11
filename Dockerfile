@@ -20,4 +20,6 @@ RUN xargs -L 1 rbenv install 2.3.4
 
 # Install Bundler for each version of ruby
 RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
-RUN bash -l -c 'rbenv global 2.3.4; gem install bundler; done'
+RUN rbenv global 2.3.4
+RUN rbenv exec gem install bundler
+RUN rbenv exec gem i rbenv-rehash
