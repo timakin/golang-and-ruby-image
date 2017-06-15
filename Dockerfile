@@ -25,6 +25,8 @@ RUN rbenv exec gem install bundler
 RUN rbenv exec gem i rbenv-rehash
 
 # Setup Docker Client
+
+ENV DOCKER_CLIENT_VERSION=17.03.0-ce
 RUN set -x
 RUN mkdir /docker_client_cache -m 755
 RUN curl -L -o /docker_client_cache/docker-$DOCKER_CLIENT_VERSION.tgz https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_CLIENT_VERSION.tgz
