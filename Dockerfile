@@ -3,12 +3,19 @@ FROM golang:1.8.3
 # Install packages for building ruby
 RUN apt-get update
 RUN apt-get install -y --force-yes build-essential curl git
-RUN apt-get install -y --force-yes zlib1g-dev libffi-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-dev python-pip
+RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-yaml python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools python-pkg-resources python-pip
 RUN apt-get clean
 
-# Install ansible
-RUN pip install markupsafe
-RUN pip install ansible
+# Install ansible 
+RUN mkdir /etc/ansible/
+RUN echo '[local]\nlocalhost\n' > /etc/ansible/hosts
+RUN mkdir /opt/ansible/
+RUN git clone http://github.com/ansible/ansible.git /opt/ansible/ansible
+WORKDIR /opt/ansible/ansible
+RUN git submodule update --init
+ENV PATH /opt/ansible/ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ENV PYTHONPATH /opt/ansible/ansible/lib
+ENV ANSIBLE_LIBRARY /opt/ansible/ansible/library
 
 # Install rbenv and ruby-build
 RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
