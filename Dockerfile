@@ -3,10 +3,11 @@ FROM golang:1.8.3
 # Install packages for building ruby
 RUN apt-get update
 RUN apt-get install -y --force-yes build-essential curl git
-RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-pip
+RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-dev python-pip
 RUN apt-get clean
 
 # Install ansible
+RUN pip install markupsafe
 RUN pip install ansible
 
 # Install rbenv and ruby-build
