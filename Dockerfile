@@ -5,6 +5,7 @@ RUN apt-get update
 RUN apt-get install -y --force-yes build-essential curl git
 RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-yaml python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools python-pkg-resources python-pip
 RUN apt-get clean
+RUN pip install awscli
 
 # Install ansible 
 RUN mkdir /etc/ansible/
