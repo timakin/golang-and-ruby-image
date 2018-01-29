@@ -4,8 +4,6 @@ FROM golang:1.8.3
 RUN apt-get update
 RUN apt-get install -y --force-yes build-essential curl git
 RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev python-yaml python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools python-pkg-resources python-pip
-RUN apt-get clean
-RUN pip install awscli
 
 # Install ansible 
 RUN mkdir /etc/ansible/
@@ -37,10 +35,11 @@ RUN rbenv exec gem install bundler
 RUN rbenv exec gem i rbenv-rehash
 
 # Setup Docker Client
-
 ENV DOCKER_CLIENT_VERSION=17.03.0-ce
 RUN set -x
 RUN mkdir /docker_client_cache -m 755
 RUN curl -L -o /docker_client_cache/docker-$DOCKER_CLIENT_VERSION.tgz https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_CLIENT_VERSION.tgz
 RUN tar -xz -C /tmp -f /docker_client_cache/docker-$DOCKER_CLIENT_VERSION.tgz
 RUN mv /tmp/docker/* /usr/bin
+
+RUN pip install awscli
